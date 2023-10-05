@@ -4,7 +4,7 @@
 
 Diese Zusammenfassung und Formelsammlung ist für den Kurs **"Mathematik für Naturwissenschaften I+II - Geographie"** von PD Dr. Kevin Wildrick für das Herbstsemester 2022 und Frühlingssemester 2023 an der Universität Bern vorgesehen. 
 
-### Bemerkung für die Kürse "Mathematik für Naturwissenschaften I+II" (nicht Geographie)
+### Bemerkung für die Kurse "Mathematik für Naturwissenschaften I+II" (nicht Geographie)
 
 Diese Zusammenfassung und Formelsammlung deckt das komplette Herbstsemester (also "Mathematik für Naturwissenschaften I") sowie die erste Hälfte des Frühlingssemesters ("Mathematik für Naturwissenschaften II") ab. Falls jemand die Zusammenfassung um die letzten Wochen erweitern will, nur zu!
 
