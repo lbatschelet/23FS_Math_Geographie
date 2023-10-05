@@ -1,0 +1,1312 @@
+\documentclass[11pt, openany]{book}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[a4paper, margin=2cm]{geometry}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+\usetikzlibrary{decorations.markings}
+\usepackage{ulem}
+\usepackage{tcolorbox}
+\usetikzlibrary{positioning, arrows.meta}
+\usepackage{multicol}
+\usepackage{titling}
+\usepackage{titlesec}
+\usepackage[colorlinks=true, linkcolor=black, urlcolor=black, citecolor=black, linktoc=all]{hyperref}
+\usepackage[
+    type={CC},
+    modifier={by-nc-sa},
+    version={4.0},
+]{doclicense}
+\usepackage[ngerman]{babel}
+  \titleformat{\chapter}[hang]
+  {\normalfont\LARGE\bfseries}{\thechapter\quad}{0pt}{\LARGE}
+
+\usepackage{fontawesome5}
+
+\makeatletter
+\newcommand{\github}[1]{%
+   \href{#1}{\faGithubSquare}%
+}
+\makeatother
+
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\nouppercase{\leftmark}}
+\fancyfoot[C]{\thepage}
+\renewcommand{\chaptermark}[1]{\markboth{\thechapter.\ #1}{}}
+
+
+
+
+
+\tikzset{
+    tangent/.style={
+        decoration={
+            markings,
+            mark=at position #1 with {
+                \coordinate (tangent point-\pgfkeysvalueof{/pgf/decoration/mark info/sequence number}) at (0pt,0pt);
+                \coordinate (tangent unit vector-\pgfkeysvalueof{/pgf/decoration/mark info/sequence number}) at (1,0pt);
+                \coordinate (tangent orthogonal unit vector-\pgfkeysvalueof{/pgf/decoration/mark info/sequence number}) at (0pt,1);
+            }
+        },
+        postaction=decorate
+    },
+    use tangent/.style={
+        shift=(tangent point-#1),
+        x=(tangent unit vector-#1),
+        y=(tangent orthogonal unit vector-#1)
+    },
+    use tangent/.default=1
+}
+
+
+
+\title{Mathematik für Naturwissenschaften: Geographie\\
+\large{Zusammenfassung \& Formelsammlung}\\
+\large{PD Dr. Kevin Wildrick}\\
+\large{Einführungsstudium Geographie}\\
+\large{Universität Bern}}
+\date{HS 2022 - FS 2023}
+\author{Lukas Batschelet}
+
+\begin{document}
+
+\begin{titlepage}
+    \begin{center}
+        {\LARGE Mathematik für Naturwissenschaften: Geographie}\\[0.5cm]
+        {\large PD Dr. Kevin Wildrick}\\[0.3cm]
+        {\LARGE Zusammenfassung \& Formelsammlung}\\[0.5cm]
+        {\large Universität Bern}\\[0.5cm]
+        {\large Frühlingssemester 2023}\\[2cm]
+        {\large Lukas Batschelet}\\[0.3cm]
+    \end{center}
+    \vfill % Fügt vertikalen Abstand ein, um den Text nach unten zu verschieben
+    \noindent \github{https://github.com/lbatschelet/23FS_Math_Geographie} Sämtliches Material ist auch auf GitHub abgelegt: \href{https://github.com/lbatschelet/23FS_Math_Geographie}{https://github.com/lbatschelet/23FS\_Math\_Geographie}
+    \doclicenseThis
+\end{titlepage}
+
+\tableofcontents
+
+\newpage
+
+\chapter*{Grundsätzliches}
+
+\begin{center}
+\begin{tikzpicture}
+\begin{axis}[
+  axis lines = middle,
+  enlargelimits=true,
+  xlabel = $x$,
+  ylabel = {$y$},
+  legend pos = outer north east,
+  legend style={draw=none},
+  xmin=-7, xmax=7,
+  ymin=-1.5, ymax=1.5,
+  samples=100,
+  domain=-7:7,
+  width=0.8\textwidth,
+  height=0.4\textwidth,
+  xtick={-6.28318, -3.14159, 3.14159, 6.28318},
+  xticklabels={},
+  ytick={-1,1},
+  yticklabels={$-1$, $1$},
+  yticklabel style={font=\tiny},
+  extra x ticks={-6, -5, ..., 6},
+  extra x tick style={grid=none, tick label style={rotate=0, anchor=east, font=\tiny, xshift=-0.4cm, opacity=0}},
+  extra y ticks={-1, 1},
+  extra y tick style={grid=none, tick label style={font=\tiny}},
+  major tick length=3pt
+]
+\addplot+[mark=none, thick, black] {sin(deg(x))};
+\addlegendentry{$\sin(x)$}
+\addplot+[mark=none, thick, black, dashed] {cos(deg(x))};
+\addlegendentry{$\cos(x)$}
+\draw[dashed, gray] (axis cs:pi,1.5) -- (axis cs:pi,-1.5) node[above right, font=\scriptsize]{$\pi$};
+\draw[dashed, gray] (axis cs:-pi,1.5) -- (axis cs:-pi,-1.5) node[above left, font=\scriptsize]{$-\pi$};
+\draw[dashed, gray] (axis cs:2*pi,1.5) -- (axis cs:2*pi,-1.5) node[above right, font=\scriptsize]{$2\pi$};
+\draw[dashed, gray] (axis cs:-2*pi,1.5) -- (axis cs:-2*pi,-1.5) node[above left, font=\scriptsize]{$-2\pi$};
+\end{axis}
+\end{tikzpicture}
+\end{center}
+
+\begin{center}
+\begin{tcolorbox}
+\begin{minipage}[t]{0.5\textwidth}
+\begin{align*}
+    &\textbf{Negative Exponenten} \\
+    & a^{-n} = \frac{1}{a^n} \\
+    &\textbf{Mitternachtsformel} \\
+    & x_{1,2} = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a} \\
+    &\textbf{Halbkreisformel} \\
+    & \sqrt{r^2 - x^2} \\
+\end{align*}
+\end{minipage}%
+\begin{minipage}[t]{0.5\textwidth}
+\begin{align*}
+    &\textbf{Kreisumfang} \\
+    & U_\text{Kreis} = 2 \cdot \pi \cdot r \\
+    &\textbf{Kugelvolumen} \\
+    & V_\text{Kugel} = \frac{4}{3} \cdot \pi \cdot r^3 \\
+    &\textbf{Kugeloberfläche} \\
+    & A_\text{Kugel} = 4 \cdot \pi \cdot r^2 \\
+\end{align*}
+\end{minipage}    
+\end{tcolorbox}
+
+\end{center}
+
+\begin{minipage}{0.45\textwidth}
+\begin{align*}
+    \ln{1} &= 0 \\
+    \ln{e} &= 1 \\
+    \ln{e^x} &= x \\
+    e^{\ln{x}} &= x \\
+    \ln{(xy)} &= \ln{x} + \ln{y} \\
+    \ln{\left(\frac{x}{y}\right)} &= \ln{x} - \ln{y} \\
+    \ln{x^k} &= k\ln{x} \\
+    \ln{\sqrt[k]{x}} &= \frac{1}{k}\ln{x}
+\end{align*}
+\end{minipage}
+\hfill
+\begin{minipage}{0.45\textwidth}
+\begin{align*}
+    \log_a{1} &= 0 \\
+    \log_a{a} &= 1 \\
+    \log_a{a^x} &= x \\
+    a^{\log_a{x}} &= x \\
+    \log_a{(xy)} &= \log_a{x} + \log_a{y} \\
+    \log_a{\left(\frac{x}{y}\right)} &= \log_a{x} - \log_a{y} \\
+    \log_a{x^k} &= k\log_a{x} \\
+    \log_a{\sqrt[k]{x}} &= \frac{1}{k}\log_a{x}
+\end{align*}
+\end{minipage}
+
+\vspace{1em}
+\begin{equation*}
+    \log_a{x} = \frac{\ln{x}}{\ln{a}} \quad \text{(Basiswechsel mit nat. Logarithmus)}
+\end{equation*}
+
+\newpage
+
+
+\chapter{Einführung in die Analysis}
+
+\section{Rekursive und explizite Folgen}
+
+\subsection{Rekursive Folgen}
+
+Rekursive Folge: $a_n = f(a_{n-1}, a_{n-2}, \dots, a_{n-k})$, wobei $k$ die Anzahl der vorherigen Elemente ist, die zur Berechnung von $a_n$ verwendet werden.
+
+\textbf{Beispiel:}
+\begin{align*}
+    a_1 &= 1, \\
+    a_2 &= 3, \\
+    a_3 &= 5, \\
+    a_4 &= 11, \\
+    a_5 &= 21, \\
+    &\ \vdots \\
+    a_n &= a_{n-1} + 2a_{n-2} \quad \text{für } n \geq 3.
+\end{align*}
+
+\subsection{Explizite Folgen}
+
+Explizite Folge: $a_n = g(n)$, wobei $g$ eine Funktion ist, die direkt den Wert von $a_n$ in Abhängigkeit von $n$ berechnet.
+
+\textbf{Beispiel:}
+\[
+    a_n = n^2 + n + 1.
+\]
+
+Erste Folgenglieder: $3, 7, 13, 21, 31, \dots$
+
+\subsection{Umwandlung rekursiver in explizite Folgen}
+
+Um eine rekursive Folge in eine explizite Folge umzuwandeln, versucht man, eine Funktion $g(n)$ zu finden, die direkt den Wert von $a_n$ berechnet, ohne auf die vorherigen Elemente der Folge zurückzugreifen.
+
+\textbf{Beispiel:}
+
+Rekursive Folge: $a_1 = 1, a_2 = 3, a_n = a_{n-1} + 2a_{n-2}$.
+
+Explizite Folge (angenommen): $a_n = \frac{1}{3}(2^n + (-1)^n - 2)$.
+
+Erste Folgenglieder (rekursiv): $1, 3, 5, 11, 21, \dots$
+
+Erste Folgenglieder (explizit): $1, 3, 5, 11, 21, \dots$
+
+\section{Grenzwertregeln}
+
+\subsection{Wichtige Grenzwertformeln}
+\begin{tcolorbox}
+\begin{align*}
+\lim_{n \to \infty} \frac{1}{n} &= 0 \\
+\lim_{n \to \infty} \sqrt[n]{n} &= \lim_{n \to \infty} n^{\frac{1}{n}} = 1 \\
+\lim_{n \to \infty} \frac{Z}{N} &= \begin{cases}
+  0, & Z < N \\
+  \frac{a_n}{b_n}, & Z = N \\
+  \pm \infty, & Z > N
+\end{cases} \quad \textbf{Z} \text{ählergrad, } \textbf{N} \text{ennergrad}\\
+\text{Oder ``stärkster Term'' gewinnt: } & e^x > x^n > x > \sqrt{} > \ln{} \\
+\lim_{n \to \infty} q^n &= \begin{cases}
+  0, & -1 < q < 1 \\
+  \infty, & q > 1 \\
+  \text{alternierend}, & q \leq -1
+\end{cases}
+\end{align*}
+\end{tcolorbox}
+
+\subsection{Komplizierte Kombinationen und Variationen}
+Nehmen wir an, dass $\lim_{n \to \infty} a_n = a$ und $\lim_{n \to \infty} b_n = b$.
+\begin{itemize}
+    \item Ausser wenn $a = \infty$ und $b = -\infty$ oder $a = -\infty$ und $b = \infty$, gilt
+    \[
+        \lim_{n \to \infty} (a_n + b_n) = a + b.
+    \]
+    \item Außer wenn $a = \pm\infty$ und $b = 0$ oder $a = 0$ und $b = \pm\infty$, gilt
+    \[
+        \lim_{n \to \infty} (a_n \cdot b_n) = a \cdot b.
+    \]
+\end{itemize}
+
+\subsection{Black Box Folgen}
+\begin{tcolorbox}
+\begin{itemize}
+    \item $\lim_{n \to \infty} \frac{b^n}{n^p} = \infty$ für alle $b > 1$ und $p > 0$.
+    \item $\lim_{n \to \infty} \frac{n^p}{\log_b n} = \infty$ für alle $b > 1$ und $p > 0$.
+    \item $\lim_{n \to \infty} n^{\frac{1}{n}} = 1$
+    \item $\lim_{n \to \infty} \left(1 + \frac{x}{n}\right)^n = e^x$ für alle reellen Zahlen $x$.
+\end{itemize}    
+\end{tcolorbox}
+
+
+\newpage
+
+\section{Reihen}
+
+\subsection{Konvergente Reihen}
+Eine geometrische Reihe ist eine Reihe der Form:
+\[
+\sum_{n=0}^{\infty} ar^n,
+\]
+wobei $a$ der Anfangswert ist und $r$ das gemeinsame Verhältnis.
+
+Die geometrische Reihe konvergiert, wenn $|r| < 1$. In diesem Fall gilt:
+\[
+       \frac{a}{1-r} = \sum_{n=0}^{\infty} ar^n \\
+\]
+\subsubsection{Wichtige konvergente Reihen}
+\begin{tcolorbox}
+\begin{minipage}{0.3\textwidth}
+\[
+\frac{a}{1-r} = \sum_{n=0}^{\infty} ar^n \quad \text{wenn } |r| < 1
+\]
+\end{minipage}
+\quad
+\begin{minipage}{0.3\textwidth}
+\[
+e^x = \sum_{j = 0}^{\infty} \frac{x^j}{j!}
+\]
+\end{minipage}
+\quad
+\begin{minipage}{0.3\textwidth}
+\[
+e^1 = \sum_{j = 0}^{\infty} \frac{1}{j!}
+\]
+\end{minipage}
+\end{tcolorbox}
+
+\subsection{Anwendung von Majorante und Minorante}
+\subsubsection{Majorante:} 
+Wenn eine positiv monotone Reihe $\sum a_n$ konvergiert und $\sum b_n$ eine andere Reihe ist, sodass $0 \leq a_n \leq b_n$ für alle $n$, dann konvergiert auch $\sum b_n$.
+
+\textbf{Beispiel:}
+\[
+\sum_{n=1}^{\infty} \frac{1}{n^2} \leq \sum_{n=1}^{\infty} \frac{1}{n(n-1)},
+\]
+also konvergiert $\sum \frac{1}{n(n-1)}$.
+
+\subsubsection{Minorante:}
+Wenn eine negativ monotone Reihe $\sum a_n$ divergiert und $\sum b_n$ eine andere Reihe ist, sodass $0 \leq b_n \leq a_n$ für alle $n$, dann divergiert auch $\sum b_n$.
+
+\textbf{Beispiel:}
+\[
+\sum_{n=1}^{\infty} \frac{1}{n} \geq \sum_{n=1}^{\infty} \frac{1}{2n},
+\]
+also divergiert $\sum \frac{1}{2n}$.
+
+\newpage
+
+\section{Integralrechnung}
+
+\subsection{Riemann-Summe}
+Für eine stetige Funktion \(f = f(x)\), die in einem Bereich \(a \le x \le b\) definiert ist, lässt sich die Fläche zwischen der x-Achse und dem Graphen der Funktion \(f\) näherungsweise approximieren durch \(n\) Rechtecke der Breite \(\Delta x = \frac{b - a}{n}\), deren Gesamtfläche
+\begin{tcolorbox}
+\begin{align*}
+\int_a^b f(x) \mathrm{d}x \approx A_n &= \Delta x \sum_{j=0}^{n-1} f(a + j \Delta x) \quad \text{[linke Riemann-Summe]} \\
+\int_a^b f(x) \mathrm{d}x \approx A_n &= \Delta x \sum_{j=0}^{n-1} f(a + (j + 1) \Delta x) \quad \text{[rechte Riemann-Summe]}    
+\end{align*}
+\end{tcolorbox}
+
+
+beträgt.
+
+\subsection{Trapezregel}
+
+\[\int_{a}^{b} f(x) \,dx \approx \frac{\Delta x}{2}(f(a) + f(b)) + \Delta x \left(f(a + \Delta x) + f(a + 2\Delta x) + \cdots + f(a + (n-1)\Delta x)\right)\]
+
+Hier ist \(\Delta x = \frac{b - a}{n}\). Die Formel wird umso genauer, je größer \(n\) ist.
+
+\subsection{Simpsonregel}
+
+\[\int_{a}^{b} f(x) \,dx \approx \frac{\Delta x}{3} \left( f(a) + 4 \sum_{j=1}^{n/2} f(a + (2j - 1) \Delta x) + 2 \sum_{j=1}^{n/2 - 1} f(a + 2j \Delta x) + f(b) \right)\]
+
+Hier ist \(\Delta x = \frac{b - a}{n}\) und \(n\) ist gerade. Die Formel wird umso genauer, je größer \(n\) ist.
+
+\subsection{Polynomregel}
+\[
+    \int_{a}^{b} kx^n \, dx = k\left(\frac{b^{n+1} - a^{n+1}}{n+1}\right), \quad \text{wobei}~k~\text{konstant ist}
+\]
+
+\subsection{Regeln für das Berechnen von bestimmten Integralen}
+
+\begin{align*}
+&\text{Regel zur Übereinstimmung von Integrationsgrenzen:} \quad \int_{a}^{a} f(x) \,dx = 0 \\
+\\
+&\text{Regel zur Vertauschung von Integrationsgrenzen:} \quad \int_{a}^{b} f(x) \,dx = -\int_{b}^{a} f(x) \,dx \\
+\\
+&\text{Regel der Intervalladditivität:} \quad \int_{a}^{b} f(x) \,dx = \int_{a}^{c} f(x) \,dx + \int_{c}^{b} f(x) \,dx \\
+\\
+&\text{Faktorregel:} \quad \int_{a}^{b} kf(x) \,dx = k \int_{a}^{b} f(x) \,dx \text{, wobei \(k\) konstant ist.}  \\
+\\
+&\text{Summenregel:} \quad \int_{a}^{b} (f(x) + g(x)) \,dx = \int_{a}^{b} f(x) \,dx + \int_{a}^{b} g(x) \,dx 
+\end{align*}    
+
+
+
+\newpage
+
+\section{Ableiten}
+Die Ableitung einer Funktion $f(x)$ ist definiert als der Grenzwert des Differenzenquotienten, wenn die Änderung in $x$ gegen Null geht. Mathematisch wird dies als:
+\begin{equation*}
+f'(x) = \frac{df}{dx} = \lim_{\Delta x\to 0} \frac{f(x + \Delta x) - f(x)}{\Delta x}
+\end{equation*}
+
+ausgedrückt. Die Ableitung $f'(x)$ gibt die Steigung der Tangente an der Funktion $f(x)$ am Punkt $x$ an. In anderen Worten, sie beschreibt die lokale Änderungsrate der Funktion $f(x)$ in Bezug auf die Änderung von $x$.
+
+\subsection{Wichtige Regeln zum Ableiten}
+
+\newlength{\boxwidth}
+\setlength{\boxwidth}{0.45\textwidth}
+\newlength{\examplewidth}
+\setlength{\examplewidth}{0.45\textwidth}
+
+\subsubsection{Konstante Funktionen}
+\noindent\begin{minipage}{\boxwidth}
+\begin{tcolorbox}
+\begin{align*}
+    f(x) &= k \\
+    f'(x) &= 0
+\end{align*}
+\end{tcolorbox}
+\end{minipage}
+\hfill
+\begin{minipage}{\examplewidth}
+Beispiel:
+\begin{align*}
+    f(x) &= 5 \\
+    f'(x) &= 0
+\end{align*}
+\end{minipage}
+
+\subsubsection{Potenzregel}
+\noindent\begin{minipage}{\boxwidth}
+\begin{tcolorbox}
+\begin{align*}
+    f(x) &= x^n \\
+    f'(x) &= n\cdot x^{(n-1)} \\
+    \\
+    f(x) &= k^x \\
+    f'(x) &= k^x \cdot \ln(k)
+\end{align*}
+\end{tcolorbox}
+\end{minipage}
+\hfill
+\begin{minipage}{\examplewidth}
+\begin{align*}
+    f(x) &= x^3 \\
+    f'(x) &= 3\cdot x^2
+\end{align*}
+\end{minipage}
+
+\subsubsection{Faktorregel}
+\noindent\begin{minipage}{\boxwidth}
+\begin{tcolorbox}
+\begin{align*}
+    f(x) &= k\cdot u(x) \\
+    f'(x) &= k\cdot u'(x)
+\end{align*}
+\end{tcolorbox}
+\end{minipage}
+\hfill
+\begin{minipage}{\examplewidth}
+\begin{align*}
+    f(x) &= \frac{x^4}{5} \\
+    f'(x) &= \frac{1}{5} \cdot 4\cdot x^3 = \frac{4\cdot x^3}{5}
+\end{align*}
+\end{minipage}
+
+\subsubsection{Summenregel}
+\noindent\begin{minipage}{\boxwidth}
+\begin{tcolorbox}
+\begin{align*}
+    f(x) &= u(x) + v(x) \\
+    f'(x) &= u'(x) + v'(x)
+\end{align*}
+\end{tcolorbox}
+\end{minipage}
+\hfill
+\begin{minipage}{\examplewidth}
+\begin{align*}
+f(x) &= x^2 - 5x^3 + 7 \\
+f'(x) &= 2x - 5\cdot 3\cdot x^2 = 2x - 15x^2
+\end{align*}
+\end{minipage}
+
+\subsubsection{Produktregel}
+\noindent\begin{minipage}{\boxwidth}
+\begin{tcolorbox}
+\begin{align*}
+    f(x) &= u(x)\cdot v(x) \\
+    f'(x) &= u'(x)\cdot v(x) + u(x)\cdot v'(x)
+\end{align*}
+\end{tcolorbox}
+\end{minipage}
+\hfill
+\begin{minipage}{\examplewidth}
+\begin{align*}
+    f(x) &= x^2\cdot \sin(x) \\
+\end{align*}
+\begin{tabular}{|c|c|}
+\hline
+$u(x) = x^2,$ & $u'(x) = 2\cdot x,$ \\
+\hline
+$v(x) = \sin(x),$ & $v'(x) = \cos(x)$ \\
+\hline
+\end{tabular}
+\begin{align*}
+    f'(x) &= 2x\cdot \sin(x) + x^2\cdot \cos(x)
+\end{align*}
+\end{minipage}
+
+\subsubsection{Quotientenregel}
+\noindent\begin{minipage}{\boxwidth}
+\begin{tcolorbox}
+\begin{align*}
+    f(x) &= \frac{u(x)}{v(x)} \\
+    f'(x) &= \frac{u'(x)\cdot v(x) - u(x)\cdot v'(x)}{v(x)^2}
+\end{align*}
+\end{tcolorbox}
+\end{minipage}
+\hfill
+\begin{minipage}{\examplewidth}
+\begin{align*}
+    f(x) &= \frac{2x + 3}{x^5} \\
+\end{align*}
+\begin{tabular}{|c|c|}
+\hline
+$u(x) = 2x + 3,$ & $u'(x) = 2,$ \\
+\hline
+$v(x) = x^5,$ & $v'(x) = 5\cdot x^4$ \\
+\hline
+\end{tabular}
+\begin{align*}
+    f'(x) &= \frac{2\cdot x^5 - (2x + 3)\cdot 5x^4}{(x^5)^2}
+\end{align*}
+\end{minipage}
+
+\subsubsection{Kettenregel}
+\noindent\begin{minipage}{\boxwidth}
+\begin{tcolorbox}
+    \begin{align*}
+        f(x) &= u(v(x)) \\
+        f'(x) &= u'(v(x))\cdot v'(x)
+    \end{align*}
+\end{tcolorbox}
+\end{minipage}
+\hfill
+\begin{minipage}{\examplewidth}
+\begin{align*}
+f(x) &= (x^4 + 5)^7 \\
+\end{align*}
+\begin{tabular}{|c|c|}
+\hline
+$u(v) = v^7,$ & $u'(v) = 7\cdot v^6$ \\
+\hline
+$v(x) = x^4 + 5,$ & $v'(x) = 4\cdot x^3$ \\
+\hline
+\end{tabular}
+\begin{align*}
+f'(x) &= 7\cdot (x^4 + 5)^6 \cdot 4x^3
+\end{align*}
+\end{minipage}
+
+\subsection{Besondere Ableitungen}
+
+\begin{tcolorbox}
+\begin{tabular}{p{0.3\linewidth} p{0.4\linewidth} p{0.3\linewidth}}
+\(
+\begin{array}{l l}
+f(x) &= \sqrt{x} \\
+f'(x) &= \frac{1}{2\cdot\sqrt{x}} \\
+\\
+f(x) &= e^x \\
+f'(x) &= e^x \\
+\\
+f(x) &= e^{kx} \\
+f'(x) &= ke^{kx} \\
+\\
+f(x) &= e^{x^k} \\
+f'(x) &= k\cdot x^{k - 1} \cdot e^{x^k}
+\end{array}
+\)
+&
+\multicolumn{1}{c}{
+\begin{tikzpicture}[baseline={(current bounding box.center)}]
+  % Circular representation of sin, cos, -sin, and -cos
+  \node (sin) at (0, 1.5) {$\sin(x)$};
+  \node (cos) at (1.5, 0) {$\cos(x)$};
+  \node (nsin) at (0, -1.5) {$-\sin(x)$};
+  \node (ncos) at (-1.5, 0) {$-\cos(x)$};
+  
+  \draw[->] (sin) to [bend left] node[midway, above right] {$f'(x)$} (cos);
+  \draw[->] (cos) to [bend left] node[midway, below right] {$f'(x)$} (nsin);
+  \draw[->] (nsin) to [bend left] node[midway, below left] {$f'(x)$} (ncos);
+  \draw[->] (ncos) to [bend left] node[midway, above left] {$f'(x)$} (sin);
+\end{tikzpicture}
+}
+&
+\(
+\begin{array}{l l}
+f(x) &= a^x \\
+f'(x) &= \ln(a) \cdot a^x \\
+\\
+f(x) &= \ln(x) \\
+f'(x) &= \frac{1}{x}\\
+\\
+f(x) &= \log_a(x) \\
+f'(x) &= \frac{1}{x \cdot \ln(a)} \\
+\\
+f(x) &= \tan(x) \\
+f'(x) &= \tan(x)^2 + 1
+\end{array}
+\)
+\end{tabular}
+\end{tcolorbox}
+
+
+\newpage
+
+\section{Differenzialgleichungen}
+\subsection{Hauptsatz der Integral- und Differentialrechnung}
+\begin{tcolorbox}
+\[
+\int_{a}^{b} f(x) \,dx = \left[F(x)\right]_{a}^{b} = F(b) - F(a)
+\]   
+\end{tcolorbox}
+
+Gegeben ist eine stetige Funktion $f$ auf einem Bereich $a \leq x \leq b$. Dann gilt:
+
+\begin{enumerate}
+\item Die Integralfunktion
+
+\[ I_f(x) = \int_a^x f(y) \, dy \]
+
+ist differenzierbar, und es gilt $I'_f = f$.
+
+\item Insbesondere lässt sich eine differenzierbare Funktion $F$ auf einem Definitionsbereich $a \leq x \leq b$ finden mit $F' = f$. Eine solche Funktion $F$ heißt \textbf{Stammfunktion} von $f$.
+
+\item Falls $f$ differenzierbar ist, dann ist die Formel
+
+\[ f(b) - f(a) = \int_a^b f'(x) \,dx \]
+
+erfüllt.
+\end{enumerate}
+
+\subsubsection{Partielle Integration}
+Seien $f'(x)$ und $g(x)$ differenzierbare Funktionen. Dann gilt für die partielle Integration:
+\begin{tcolorbox}
+ \[\int f'(x)g(x) \,dx  = f(x) \cdot g(x) - \int f(x)g'(x) \, dx\]   
+\[\int_a^b f'(x)g(x) \,dx  = \Bigl[f(x)g(x)\Bigr]_a^b - \int_a^b f(x)g'(x) \, dx = f(b)g(b) - f(a)g(a) - \int_a^b f(x)g'(x) \, dx
+\] 
+\end{tcolorbox}
+
+Wir verwenden die partielle Integration, wenn wir sehen, dass das Integral $\int_a^b f(x)g'(x) \, dx$ einfacher zu berechnen ist als das ursprüngliche.\
+
+
+\textbf{Beispiel:}
+Betrachten wir das Integral
+\[
+\int_0^2 xe^x \, dx.
+\]
+\begin{center}
+\begin{tabular}{c|c|c}
+ & Funktion & Ableitung \\
+\hline
+$f$ & $e^x$ & $e^x$ \\
+\hline
+$g$ & $x$ & $1$ \\
+\end{tabular} \\    
+\end{center}
+
+
+
+Die partielle Integration ergibt 
+
+\[
+\int_0^2 xe^x \, dx = e^2 \cdot 2 - e^0 \cdot 0 - \int_0^2 e^x \cdot 1 \,dx = 2e^2 -[e^2 - e^0] = \uuline{e^2 + 1}
+\]
+\newpage
+
+\subsubsection{Substitutionsregel}
+Sei $g(x)$ eine differenzierbare Funktion und $f(g(x))$ eine Funktion. Dann gilt für die Integration durch Substitution:
+\begin{tcolorbox}
+\[
+\int_a^b f(g(x))g'(x) \, dx = \int_{g(a)}^{g(b)} f(x) \, dx
+\]   
+\end{tcolorbox}
+
+
+\textbf{Hinweis:}
+Die Substitutionsregel eignet sich besonders im Fall dass eine Funktion wie auch deren Ableitung mehr oder weniger direkt im Integral erkennbar sind. \\
+\textbf{Beispiel:}
+Betrachten wir das Integral
+\[
+\int_0^{\pi/2} \sin^2(x) \, dx.
+\]
+
+Wir setzen $g(x) = \cos(x)$, dann ist $g'(x) = -\sin(x)$. Wir wollen $f(g(x))$ als $\sin^2(x)$ ausdrücken. Da $\sin^2(x) = 1 - \cos^2(x)$, erhalten wir $f(g(x)) = 1 - g^2(x)$. Damit ergibt sich das Integral als
+
+\[
+\int_0^{\pi/2} \sin^2(x) \, dx = \int_{g(0)}^{g(\pi/2)} (1 - x^2) (-dx).
+\]
+
+
+Das Integral ist nun:
+\[
+\int_0^{\pi^2} \sin(x) \, dx
+\]
+
+\subsection{Homogene/Inhomogene und Lineare/Nichtlineare Differentialgleichungen}
+Eine Differentialgleichung der Form
+
+\[ F(x, y, y', \dots, y^{(n)}) = 0 \]
+
+wird wie folgt klassifiziert:
+
+\begin{enumerate}
+    \item \textbf{Homogen} / \textbf{Inhomogen}:
+    \begin{itemize}
+        \item Eine Differentialgleichung ist \emph{homogen}, wenn sie die Form
+        
+        \[ L(y, y', \dots, y^{(n)}) = 0 \]
+        
+        hat, wobei $L$ linear in $y, y', \dots, y^{(n)}$ ist.
+        
+        Beispiel: \[ y'' + 2y' + y = 0 \]
+        
+        \item Eine Differentialgleichung ist \emph{inhomogen}, wenn sie die Form
+        
+        \[ L(y, y', \dots, y^{(n)}) = G(x) \]
+        
+        hat, wobei $L$ linear in $y, y', \dots, y^{(n)}$ ist und $G(x)$ eine Funktion von $x$ ist.
+        
+        Beispiel: \[ y'' + 2y' + y = e^x \]
+    \end{itemize}
+
+\newpage
+
+    \item \textbf{Linear} / \textbf{Nichtlinear}:
+    \begin{itemize}
+        \item Eine Differentialgleichung ist \emph{linear}, wenn sie die Form
+        
+        \[ a_n(x) y^{(n)} + a_{n-1}(x) y^{(n-1)} + \cdots + a_1(x) y' + a_0(x) y = G(x) \]
+        
+        hat, wobei $a_i(x)$ und $G(x)$ Funktionen von $x$ sind.
+        
+        Beispiel: \[ y'' + 2y' + y = e^x \]
+        
+        \item Eine Differentialgleichung ist \emph{nichtlinear}, wenn sie nicht linear ist. Das bedeutet, dass sie Terme enthält, die Potenzen oder Produkte von $y, y', \dots, y^{(n)}$ höher als 1 sind oder Funktionen, die von diesen Ableitungen abhängen.
+        
+        Beispiel: \[ y'' + y^2 = 0 \]
+    \end{itemize}
+\end{enumerate}
+
+
+
+\subsection{Taylorpolynom und Taylor-Entwicklung}
+
+Ein \emph{Taylorpolynom} ist eine Polynomapproximation einer Funktion, die sich in der Nähe eines bestimmten Punkts $x_0$ am besten an die Funktion annähert. Das Taylorpolynom der Ordnung $n$ für eine Funktion $f(x)$ ist gegeben durch:
+
+\[
+P_n(x) = f(x_0) + f'(x_0)(x - x_0) + \frac{f''(x_0)}{2!}(x - x_0)^2 + \cdots + \frac{f^{(n)}(x_0)}{n!}(x - x_0)^n
+\]
+
+Wobei $f^{(n)}(x_0)$ die $n$-te Ableitung von $f(x)$ am Punkt $x_0$ ist.
+
+Die \emph{Taylor-Entwicklung} einer Funktion ist die unendliche Summe ihrer Taylorpolynome, die eine exakte Darstellung der Funktion liefert, falls die Funktion unendlich oft differenzierbar ist. Die Taylor-Entwicklung von $f(x)$ um den Punkt $x_0$ ist gegeben durch:
+\begin{tcolorbox}
+\[
+f(x) = \sum_{n=0}^{\infty} \frac{f^{(n)}(x_0)}{n!}(x - x_0)^n
+\]    
+\end{tcolorbox}
+
+
+\subsection{Newton-Raphson-Verfahren}
+
+Das \emph{Newton-Raphson-Verfahren} ist eine iterative Methode zur Bestimmung von Nullstellen einer Funktion $f(x)$. Um die Nullstelle in der Nähe eines Schätzpunkts $x_0$ zu finden, wiederholen wir die folgende Iterationsformel:
+\begin{tcolorbox}
+\[
+x_{n+1} = x_n - \frac{f(x_n)}{f'(x_n)}
+\]    
+\end{tcolorbox}
+
+
+Wobei $x_{n+1}$ die verbesserte Schätzung der Nullstelle ist, $x_n$ die aktuelle Schätzung und $f'(x_n)$ die Ableitung von $f(x)$ am Punkt $x_n$. Die Iteration wird fortgesetzt, bis eine gewünschte Genauigkeit erreicht ist oder die Schätzungen konvergieren.
+
+\newpage
+
+\subsection{Mittelwertsatz der Differentialrechnung}
+Sei $f(x)$ eine Funktion, die auf $(a, b)$ definiert ist. Für $a < t_1 \leq t_2 < b$ gibt es einen Punkt $t_1 \leq t_0 \leq t_2$, sodass:
+
+\[
+f'(t_0) = \frac{f(t_2) - f(t_1)}{t_2 - t_1}
+\]
+
+\begin{figure}[h]
+\centering
+\begin{tikzpicture}
+    \draw[->] (-1,0) -- (5,0) node[right] {$x$};
+    \draw[->] (0,-1) -- (0,4) node[above] {$f(x)$};
+    \draw[domain=-0.5:4.5, samples=100, smooth] plot (\x,{0.5*sin(\x r)+2});
+    \draw[dashed] (1,0) node[below] {$t_1$} -- (1,{0.5*sin(1 r)+2}) -- (0,{0.5*sin(1 r)+2}) node[left] {$f(t_1)$};
+    \draw[dashed] (4,0) node[below] {$t_2$} -- (4,{0.5*sin(4 r)+2}) -- (0,{0.5*sin(4 r)+2}) node[left] {$f(t_2)$};
+    \draw (1,{0.5*sin(1 r)+2}) -- (4,{0.5*sin(4 r)+2});
+
+    \def\tzero{2.132652355487394}
+    \draw[dashed] (\tzero,0) node[below] {$t_0$} -- (\tzero,{0.5*sin(\tzero r)+2});
+    \draw[domain=0.5:3.5, samples=100, smooth, black] plot (\x,{0.5*sin(\tzero r)+2+(\x-\tzero)*(0.5*cos(\tzero r))});
+\end{tikzpicture}
+\caption{Die Steigung bei $f(t_0)$ ist gleich wie die durchschnittliche Steigung von $f(t_1)$ bis $f(t_2)$.}
+\end{figure}
+
+
+\subsection{Numerisches Differenzieren}
+
+\begin{align*}
+&\text{Gegeben:} \quad (x_0, y_0), (x_1, y_1), \dots, (x_n, y_n) \\
+&\text{Ziel:} \quad f'(x_i) \text{ für } i = 0, 1, \dots, n
+\end{align*}
+\begin{multicols}{2}
+\textbf{Vorwärtsdifferenzen:} \\
+\begin{align*}
+f'(x_i) &\approx \frac{y_{i+1} - y_i}{x_{i+1} - x_i}, \quad i = 0, 1, \dots, n - 1
+\end{align*}
+
+\textbf{Rückwärtsdifferenzen:} \\
+\begin{align*}
+f'(x_i) &\approx \frac{y_i - y_{i-1}}{x_i - x_{i-1}}, \quad i = 1, 2, \dots, n
+\end{align*}
+
+\textbf{Zentrale Differenzen:} \\
+\begin{align*}
+f'(x_i) &\approx \frac{y_{i+1} - y_{i-1}}{x_{i+1} - x_{i-1}}, \quad i = 1, 2, \dots, n - 1
+\end{align*}
+
+\columnbreak
+\textbf{Beispiel:} \\
+Gegeben seien die Datenpunkte:
+\[
+\begin{array}{c|c|c|c|c}
+x & 0 & 1 & 2 & 3 \\
+\hline
+y & 2 & 5 & 11 & 20
+\end{array}
+\]
+
+Numerische Ableitungen:
+
+\begin{align*}
+f'(0) &\approx \frac{5 - 2}{1 - 0} = 3 \\
+f'(1) &\approx \frac{11 - 2}{2 - 0} = 4,5 \\
+f'(2) &\approx \frac{20 - 5}{3 - 1} = 7,5 \\
+f'(3) &\approx \frac{20 - 11}{3 - 2} = 9
+\end{align*}
+\end{multicols}
+\newpage
+
+\subsection{Allgemeine Lösung von linearen, homogenen Differentialgleichungen zweiter Ordnung}
+
+Wir betrachten eine beliebige lineare, homogene Differentialgleichung zweiter Ordnung
+\begin{equation}
+    f''(t) + pf'(t) + qf(t) = 0. \tag{1}
+\end{equation}
+
+Einige Beispiele solcher Gleichungen sind
+\begin{itemize}
+    \item $f''(t) + f(t) = 0$, wobei $p = 0$ und $q = 1$,
+    \item $f''(t) + f'(t) + f(t) = 0$, wobei $p = 1$ und $q = 1$,
+    \item $f''(t) = 4f'(t) - 2f(t)$, wobei $p = -4$ und $q = 1$.
+\end{itemize}
+
+Die allgemeine Lösung der Gleichung (1) hängt von $p$ und $q$ ab. Entscheidend ist die Diskriminante $D = \frac{p^2}{4} - q$.
+Wir beginnen mit einem exponentiellen Ansatz. Wir können berechnen, dass $f(t) = e^{\lambda t}$ eine Lösung von (1) ist dann, und nur dann, wenn $\lambda$ die Charakteristische Gleichung erfüllt:
+\begin{equation}
+    \lambda^2 + p \lambda + q = 0. \tag{2}
+\end{equation}
+
+Wenn $D > 0$, gibt es zwei unterschiedliche Lösungen der Charakteristischen Gleichung:
+\[
+    \lambda_1 = \frac{-p}{2} + \sqrt{D} \quad \text{und} \quad \lambda_2 = \frac{-p}{2} - \sqrt{D}.
+\]
+\begin{tcolorbox}
+    Wenn $\mathbf{D > 0}$ gilt: Die Allgemeine Lösung der Differentialgleichung (1) ist
+    \[
+        f_0(t) = k_1 e^{\frac{-p}{2} + \sqrt{D} t} + k_2 e^{\frac{-p}{2} - \sqrt{D} t}.
+    \]
+\end{tcolorbox}
+
+Wenn $D = 0$, gibt es nur eine Lösung der Charakteristischen Gleichung (2), nämlich $\frac{-p}{2}$. Das heißt, dass $e^{\frac{-p}{2} t}$ eine Lösung der Differentialgleichung (1) ist. Wir müssen aber immer noch eine zweite unterschiedliche Lösung finden, um die allgemeine Lösung zu erstellen. Dies ist durch die Funktion $t e^{\frac{-p}{2} t}$ gegeben.
+
+\begin{tcolorbox}
+    Wenn $\mathbf{D = 0}$, ist die allgemeine Lösung der Differentialgleichung (1):
+    \[
+        f_0(t) = k_1 e^{\frac{-p}{2} t} + k_2 t e^{\frac{-p}{2} t}.
+    \]
+\end{tcolorbox}
+
+Wenn $D < 0$, gibt es keine Lösungen zur Charakteristischen Gleichung (2), und so für jedes $\lambda$ ist $e^{\lambda t}$ keine Lösung der Differentialgleichung (1). Wir brauchen einen anderen Ansatz. Motiviert durch die Gleichung
+\[
+    f''(t) + f(t) = 0,
+\]
+die allgemeine Lösung $k_1 \cos(t) + k_2 \sin(t)$ hat, stoßen wir auf trigonometrische Funktionen. Viel Erfahrung und komplexe Analyse bringen uns zu den Ansätzen $e^{at}\cos(bt)$ und $e^{at} \sin(bt)$. Eine lange Berechnung zeigt, dass diese Funktionen eine Lösung der Differentialgleichung (1) sind, wenn und nur wenn $a = \frac{-p}{2}$ und $b = \sqrt{\lvert D \rvert}$.
+
+\begin{tcolorbox}
+    Wenn $\mathbf{D < 0}$, ist die allgemeine Lösung der Differentialgleichung (1):
+    \[
+        f_0(t) = k_1 e^{\frac{-p}{2} t} \cos(\sqrt{\lvert D \rvert} t) + k_2 e^{\frac{-p}{2} t} \sin(\sqrt{\lvert D \rvert} t).
+    \]
+\end{tcolorbox}
+\newpage
+
+\subsection{Eulerverfahren}
+Das Eulerverfahren ist eine einfache numerische Methode zur Lösung von Anfangswertproblemen der Form
+\[
+y'(t) = f(t, y(t)), \quad y(t_0) = y_0.
+\]
+Das Verfahren besteht darin, die Ableitung $y'(t)$ durch eine Differenzenformel zu approximieren und so die Lösung schrittweise aufzubauen.
+
+Gegeben sei ein Anfangswertproblem
+\[
+y'(t) = t (y(t))^2, \quad y(0) = 1.
+\]
+Wir möchten die Lösung in Schritten der Größe $\Delta t = 1$ approximieren. Das Eulerverfahren verwendet die folgende Iterationsformel:
+\begin{tcolorbox}
+\[
+y_{n+1} = y_n + \Delta t \cdot f(t_n, y_n),
+\]    
+\end{tcolorbox}
+
+wobei $y_n \approx y(t_n)$ und $t_n = t_0 + n \Delta t$. In unserem Beispiel ergibt sich die Iterationsformel zu
+\[
+y_{n+1} = y_n + 1 \cdot (t_n (y_n)^2).
+\]
+Wir berechnen die ersten Schritte des Verfahrens:
+\begin{align*}
+y_1 &= y_0 + 1 \cdot (0 \cdot (1)^2) = 1 + 0 = 1, \\
+y_2 &= y_1 + 1 \cdot (1 \cdot (1)^2) = 1 + 1 = 2, \\
+y_3 &= y_2 + 1 \cdot (2 \cdot (2)^2) = 2 + 8 = 10, \\
+\end{align*}
+und so weiter.
+
+Die erhaltenen Werte $y_n$ sind Approximationen der Lösung $y(t_n)$ des Anfangswertproblems.
+\vspace{1cm}
+
+\section{Skalarfunktionen, Gradienten und Niveaulinien}
+
+Skalarfunktionen sind Funktionen, die mehrere Variablen aufnehmen und einen einzelnen skalaren Wert ausgeben. Sie können als $f: \mathbb{R}^n \to \mathbb{R}$ definiert werden, wobei $n$ die Anzahl der Eingabevariablen ist. Ein Beispiel für eine Skalarfunktion ist $f(x, y) = x^2 + y^2$.
+
+Der Gradient einer Skalarfunktion ist ein Vektor, der die Richtung des steilsten Anstiegs der Funktion angibt. Er wird mit dem Nabla-Symbol $\nabla$ dargestellt und ist definiert als:
+
+\[\nabla f = \left(\frac{\partial f}{\partial x_1}, \frac{\partial f}{\partial x_2}, \ldots, \frac{\partial f}{\partial x_n}\right)\]
+
+Niveaulinien sind Kurven, auf denen eine Skalarfunktion einen konstanten Wert hat. Sie werden häufig verwendet, um die Topographie einer Funktion in einem zweidimensionalen Raum darzustellen. Für eine Skalarfunktion $f(x, y)$ ist eine Niveaulinie definiert als die Menge aller Punkte $(x, y)$, für die $f(x, y) = c$ gilt, wobei $c$ ein konstanter Wert ist.
+
+\subsubsection{Beispiel: Niveaulinien der Funktion $f(x, y) = x^2 + y^2$}
+
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}[scale=0.8]
+  \draw[->] (-3,0) -- (3,0) node[right] {$x$};
+  \draw[->] (0,-3) -- (0,3) node[above] {$y$};
+
+  \foreach \r in {1,2}
+  {
+    \draw[blue] (0, 0) circle (\r);
+    \node[blue, fill=white] at (45:\r) {$c_\r$};
+  }
+
+  \node[below left] at (0,0) {$0$};
+\end{tikzpicture}
+\caption{Niveaulinien der Funktion $f(x, y) = x^2 + y^2$.}
+\label{fig:niveaulinien}
+\end{figure}
+
+In diesem Beispiel sind die Niveaulinien der Funktion Kreise um den Ursprung. Jede Linie entspricht einem konstanten Wert $c$, der den Radius des Kreises bestimmt.
+
+\subsection{Partielle Ableitungen und Gradienten}
+
+Die partiellen Ableitungen einer Skalarfunktion sind die Ableitungen der Funktion nach jeder Eingabevariablen. Sie geben die Rate des Funktionsanstiegs in Bezug auf die jeweilige Variable an. Für eine Skalarfunktion $f(x, y)$ sind die ersten partiellen Ableitungen $\frac{\partial f}{\partial x}$ und $\frac{\partial f}{\partial y}$. 
+
+Der Gradient einer Skalarfunktion ist ein Vektor, der die partiellen Ableitungen als Komponenten enthält. Der Gradient gibt die Richtung des steilsten Anstiegs der Funktion an und wird mit dem Nabla-Symbol $\nabla$ dargestellt. Für eine Skalarfunktion $f(x, y)$ ist der Gradient wie folgt definiert:
+
+\[\nabla f = \left(\frac{\partial f}{\partial x}, \frac{\partial f}{\partial y}\right)\]
+
+In diesem Kapitel werden wir die Konzepte der partiellen Ableitungen und Gradienten untersuchen und anwenden, um die Eigenschaften von Skalarfunktionen besser zu verstehen. Das Verständnis dieser Konzepte ermöglicht es Ihnen, die in der Übungsserie vorgestellten Aufgaben zu lösen.
+
+\subsubsection{Beispiel: Gradient der Funktion $f(x, y) = x^2 + y^2$}
+
+Betrachten Sie die Skalarfunktion $f(x, y) = x^2 + y^2$. Um den Gradienten dieser Funktion zu berechnen, müssen wir zunächst die partiellen Ableitungen in Bezug auf $x$ und $y$ bestimmen:
+
+\[\frac{\partial f}{\partial x} = 2x\]
+\[\frac{\partial f}{\partial y} = 2y\]
+
+Der Gradient der Funktion $f(x, y)$ ist daher:
+
+\[\nabla f = \left(2x, 2y\right)\]
+
+Der Gradient gibt die Richtung des steilsten Anstiegs der Funktion an. In diesem Beispiel zeigt der Gradient radial nach außen, weg vom Ursprung.
+
+\newpage
+
+
+\chapter{Einführung in die Lineare Algebra}
+\section{Gauss-Verfahren}
+Das Gauss-Verfahren wird verwendet, um Gleichungssysteme mit mehreren Unbekannten in der Form
+{\small
+\[
+\left\{
+\begin{aligned}
+  6\cdot x_1 - 1\cdot x_2 + 1\cdot x_3 - 12\cdot x_4 &= -6 \\
+  6\cdot x_1 - 2\cdot x_2 + 2\cdot x_3 - 8\cdot x_4 &= 8 \\
+  3\cdot x_1 + 0\cdot x_2 + 2\cdot x_3 - 4\cdot x_4 &= 5
+\end{aligned}
+\right.
+\]}
+
+zu lösen. Wir gehen wie folgt vor:
+
+\begin{enumerate}
+    \item Reihenfolge der Gleichungen ändern, so dass Position$_{[1|1]}$ nicht gleich 0:
+    {\small
+    \[
+    \left(
+    \begin{array}{cccc|c}
+      \textbf{6} & -1 & 1 & -12 & -6 \\
+      6 & -2 & 2 & -8 & 8 \\
+      3 & 0 & 2 & -4 & 5
+    \end{array}
+    \right)
+    \]}
+    
+    \item Zeile 1 so faktorisieren, dass Position$_{[1|1]} = 1$, "Führende 1" markieren:
+    {\small
+    \[
+    \begin{array}{c|c}
+      \left(\begin{array}{cccc|c}
+        \textbf{1} & -\frac{1}{6} & \frac{1}{6} & -2 & -1 \\
+        6 & -2 & 2 & -8 & 8 \\
+        3 & 0 & 2 & -4 & 5
+      \end{array}\right) & \begin{array}{l}
+        \text{Zeile}_1 \div 6 \to \text{Zeile}_1
+      \end{array}
+    \end{array}
+    \]}
+    
+    \item Zeilen unterhalb so mit der Zeile addieren, dass die Spalte unterhalb Position$_{[1|1]}$ überall 0 ist:
+    {\small
+    \[
+    \begin{array}{c|c}
+      \left(\begin{array}{cccc|c}
+          \textbf{1} & -\frac{1}{6} & \frac{1}{6} & -2 & -1 \\
+          0 & -1 & 1 & 4 & 14 \\
+          0 & \frac{1}{2} & \frac{3}{2} & 2 & 8
+        \end{array}\right) & \begin{array}{l}
+          \text{Zeile}_2 - 6\cdot\text{Zeile}_1 \to \text{Zeile}_2 \\
+          \text{Zeile}_3 - 3\cdot\text{Zeile}_1 \to \text{Zeile}_3
+        \end{array}
+    \end{array}
+    \]}
+    \item Verfahren auf der Diagonale wiederholen, bis keine "führende 1" mehr existieren:
+    {\small
+    \[
+    \left(
+    \begin{array}{cccc|c}
+      \textbf{1} & -\frac{1}{6} & \frac{1}{6} & -2 & -1 \\
+      0 & \textbf{1} & -1 & -4 & -14 \\
+      0 & \frac{1}{2} & \frac{3}{2} & 2 & 8
+    \end{array}
+    \right) \qquad \begin{array}{c}
+      \text{Zeile}_2 \cdot -1 \to \text{Zeile}_2 \\
+    \end{array}
+    \]
+    \[
+    \left(
+    \begin{array}{cccc|c}
+      \textbf{1} & -\frac{1}{6} & \frac{1}{6} & -2 & -1 \\
+      0 & \textbf{1} & -1 & -4 & -14 \\
+      0 & 0 & 2 & 4 & 15
+    \end{array}
+    \right) \qquad \begin{array}{c}
+      \text{Zeile}_3 - \frac{1}{2}\cdot \text{Zeile}_2 \to \text{Zeile}_3 \\
+    \end{array}
+    \]
+    \[
+    \left(
+    \begin{array}{cccc|c}
+      \textbf{1} & -\frac{1}{6} & \frac{1}{6} & -2 & -1 \\
+      0 & \textbf{1} & -1 & -4 & -14 \\
+      0 & 0 & \textbf{1} & 2 & 7.5
+    \end{array}
+    \right) \qquad \begin{array}{c}
+      \text{Zeile}_3 \div 2 \to \text{Zeile}_3 \\
+    \end{array}
+    \]}  
+    
+    \item Spalten ohne führende 1 identifizieren und Parameter hinzufügen (Bspw. $x_4 = s$):
+    {\small
+    \[
+    \left(
+    \begin{array}{cccc|c}
+      \textbf{1} & -\frac{1}{6} & \frac{1}{6} & -2 & -1 \\
+      0 & \textbf{1} & -1 & -4 & -14 \\
+      0 & 0 & \textbf{1} & 2 & 7.5 \\
+      0 & 0 & 0 & \textbf{1} & s
+    \end{array}
+    \right)
+    \]}
+    \item Von hinten unten Anfangen und das Gauss-Verfahren nach oben fertig lösen:
+    {\small
+    \[
+    \left(
+    \begin{array}{cccc|c}
+      \textbf{1} & -\frac{1}{6} & \frac{1}{6} & 0 & -1 + 2s \\
+      0 & \textbf{1} & -1 & 0 & -14 + 4s \\
+      0 & 0 & \textbf{1} & 0 & 7.5 - 2s \\
+      0 & 0 & 0 & \textbf{1} & s
+    \end{array}
+    \right) \qquad \begin{array}{c}
+      \text{Zeile}_1 + 2\cdot\text{Zeile}_4 \to \text{Zeile}_1 \\
+      \text{Zeile}_2 + 4\cdot\text{Zeile}_4 \to \text{Zeile}_2 \\
+      \text{Zeile}_3 - 2\cdot\text{Zeile}_4 \to \text{Zeile}_3
+    \end{array}
+    \]
+    \[
+    \left(
+    \begin{array}{cccc|c}
+      \textbf{1} & -\frac{1}{6} & 0 & 0 & -\frac{9}{4} + \frac{7}{3}s \\
+      0 & \textbf{1} & 0 & 0 & -6.5 + 2s \\
+      0 & 0 & \textbf{1} & 0 & 7.5 - 2s \\
+      0 & 0 & 0 & \textbf{1} & s
+    \end{array}
+    \right) \qquad \begin{array}{c}
+      \text{Zeile}_1 + \frac{1}{6}\cdot\text{Zeile}_2 \to \text{Zeile}_1 \\
+      \text{Zeile}_2 + \text{Zeile}_3 \to \text{Zeile}_2
+    \end{array}
+    \]}
+\end{enumerate}
+
+{\small
+\[
+\left(
+\begin{array}{cccc|c}
+      \textbf{1} & 0 & 0 & 0 & -\frac{7}{6} + \frac{8}{3}s \\
+      0 & \textbf{1} & 0 & 0 & -6.5 + 2s \\
+      0 & 0 & \textbf{1} & 0 & 7.5 - 2s \\
+      0 & 0 & 0 & \textbf{1} & s
+\end{array}
+\right) \qquad \begin{array}{c}
+    \text{Zeile}_1 + \frac{1}{6}\cdot\text{Zeile}_2 \to \text{Zeile}_1
+    \end{array}
+\]}
+\vspace{1cm}
+
+{\small
+\[
+\mathcal{L} = \left\{ \begin{pmatrix}
+-\frac{7}{6} + \frac{8}{3}s \\
+-6.5 + 2s \\
+7.5 - 2s \\
+s
+\end{pmatrix} : s \in \mathbb{R} \right\}
+\]}
+
+
+
+\section{Unterräume}
+
+\textbf{Definition:} Eine Teilmenge $U$ in $\mathbb{R}^k$ ist ein Unterraum, falls jede Linearkombination von $U$ weiterhin in $U$ ist.
+
+\begin{enumerate}
+    \item $\operatorname{span}(\vec{v}_1, \dots, \vec{v}_p)$ ist immer ein Unterraum.
+    \item Die Lösungsmenge des Systems $(A|\vec{0})$ ist ein Unterraum.
+    \begin{itemize}
+        \item Warum? Wie beschreiben wir die Lösungsmenge von $(A|\vec{0})$ als $\operatorname{span}$?
+        \begin{enumerate}
+            \item Parametrische Darstellung finden
+            \item "Auseinandernehmen"
+        \end{enumerate}
+    \end{itemize}
+    \item Die Menge aller $\vec{b}$, sodass $(A|\vec{b})$ mindestens eine Lösung hat, ist ein Unterraum.
+    \begin{itemize}
+        \item Warum? Die Menge ist gleich $\operatorname{span}$ (Spalten von $A$).
+    \end{itemize}
+\end{enumerate}
+
+\textbf{Wie finden wir eine Basis für einen Unterraum?}
+\begin{enumerate}
+    \item Wir schreiben den Unterraum als einen $\operatorname{span}$:
+    \[
+    U = \operatorname{span}(\vec{v}_1, \dots, \vec{v}_p)
+    \]
+    \item Falls $\vec{v}_1, \dots, \vec{v}_p$ linear unabhängig sind, bilden sie bereits eine Basis.
+    \item Wir bilden eine Matrix aus den Zeilen $\vec{v}_1, \dots, \vec{v}_p$, führen das Gauss-Verfahren durch und behalten alle Zeilen $\neq 0$.
+\end{enumerate}
+\newpage
+
+\section{Methode der kleinsten Quadrate}
+
+Wir möchten die Temperaturänderung einer Eisprobe modellieren, indem wir eine Funktion der Form $T(t) = k_1 \cdot t + k_2$ verwenden. Gegeben sind folgende Daten:
+\begin{center}
+\begin{tabular}{c|c}
+Zeit ($t$) & Temperatur ($T(t)$) \\ \hline
+0          & -2                 \\
+1          & -1                 \\
+2          & 2                  \\
+3          & 4                  \\
+\end{tabular}
+\end{center}
+In das Modell eingesetzt, ergibt das
+
+\begin{center}
+\begin{tikzpicture}[node distance=3cm, auto]
+    \node (A) {
+    \(
+    \begin{aligned}
+    k_1 \cdot 0 + k_2 &= -2 \\
+    k_1 \cdot 1 + k_2 &= -1 \\
+    k_1 \cdot 2 + k_2 &= 2 \\
+    k_1 \cdot 3 + k_2 &= 4
+    \end{aligned}
+    \)
+    };
+    
+    \node[right = of A] (B) {
+    \(
+    \left(
+    \begin{array}{cc|c}
+          \vec{w_1} & \vec{w_2} & \vec{d} \\
+          \hline
+          0 & 1 & -2 \\
+          1 & 1 & -1 \\
+          2 & 1 & 2 \\
+          3 & 1 & 4
+    \end{array}
+    \right)
+    \)
+    };
+
+    \draw[-{Stealth[length=3mm]}, line width=0.2mm] (A) -- (B);
+\end{tikzpicture}
+\end{center}
+
+Da dieses System keine Lösung hat, suchen wir nach einer Kompromisslösung, indem wir das zugehörige Normalgleichungssystem lösen. Das erweiterte System sieht wie folgt aus:
+
+\[
+\left(
+\begin{array}{cc|c}
+      \langle \vec{w_1},  \vec{w_1} \rangle & \langle \vec{w_2},  \vec{w_1} \rangle & \langle \vec{d},  \vec{w_1} \rangle \\
+      \langle \vec{w_1},  \vec{w_2} \rangle & \langle \vec{w_2},  \vec{w_2} \rangle & \langle \vec{d},  \vec{w_2} \rangle \\
+\end{array}
+\right)
+\]
+
+Die Skalarprodukte berechnen sich wie folgt:
+
+
+\begin{minipage}[t]{0.5\textwidth}
+\begin{align*}
+\langle \vec{w_1},  \vec{w_1} \rangle &= 0^2 + 1^2 + 2^2 + 3^2 = 14 \\
+\langle \vec{w_1},  \vec{w_2} \rangle &= 0\cdot1 + 1\cdot1 + 2\cdot1 + 3\cdot1 = 6 \\
+\langle \vec{w_2},  \vec{w_1} \rangle &= 1\cdot0 + 1\cdot1 + 1\cdot2 + 1\cdot3 = 6 \\
+\end{align*}
+\end{minipage}%
+\begin{minipage}[t]{0.5\textwidth}
+\begin{align*}
+\langle \vec{w_2},  \vec{w_2} \rangle &= 1^2 + 1^2 + 1^2 + 1^2 = 4 \\
+\langle \vec{d},  \vec{w_1} \rangle &= 0\cdot(-2) + 1\cdot(-1) + 2\cdot2 + 3\cdot4 = 15 \\
+\langle \vec{d},  \vec{w_2} \rangle &= 1\cdot(-2) + 1\cdot(-1) + 1\cdot2 + 1\cdot4 = 3
+\end{align*}
+\end{minipage}
+
+Das Normalsystem ist also:
+\begin{center}
+\begin{tikzpicture}
+\node (A) at (0,0) {
+$\left(
+\begin{array}{cc|c}
+      14 & 6 & 15 \\
+      6 & 4 & 3
+\end{array}
+\right)
+$};
+
+\node (B) at (4,0) {
+$\left(
+\begin{array}{cc|c}
+      1 & 0 & 4.5 \\
+      0 & 1 & -8
+\end{array}
+\right)
+$};
+
+\node (C) at (8,0) {
+$
+\begin{aligned}
+k_1 &= 4.5 \\
+k_2 &= -8
+\end{aligned}
+$};
+
+\draw[->] (A) -- node[above, font=\small] {G.V.} (B);
+\draw[->] (B) -- (C);
+\end{tikzpicture}
+\end{center}
+
+Das Temperaturmodell lautet:
+
+\begin{align*}
+    T(t) &= 4.5 \cdot t - 8 
+\end{align*}
+
+Um herauszufinden, zu welchem Zeitpunkt $t$ die Temperatur 0°C erreicht wurde, können wir nun einsetzten:
+
+\begin{align*}
+    T(t) = 0 &= 4.5 \cdot t - 8 \\
+    t &= \uuline{\frac{8}{4.5}}    
+\end{align*}
+
+\end{document}
+
